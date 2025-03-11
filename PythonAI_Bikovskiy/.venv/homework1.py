@@ -1,0 +1,6 @@
+print("""
+      o/
+     /|
+     / \   
+Hello world!
+""")
