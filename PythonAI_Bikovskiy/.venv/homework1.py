@@ -1,6 +1,0 @@
-print("""
-      o/
-     /|
-     / \   
-Hello world!
-""")
