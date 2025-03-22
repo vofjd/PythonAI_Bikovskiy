@@ -1,78 +1,72 @@
 class Hamster:
-    def __init__(self, name = "Hamster"):
+    def __init__(self, name="Hamster"):
         self.name = name
         self.money = 20
         self.gladness = 15
         self.satiety = 10
         self.food = 0
+        self.status()
 
-
-
-        print(f"Names of hamster - {self.name}")
-        print(f" Money of hamster {self.money}")
-        print(f"  Gladness of hamster {self.gladness}")
-        print(f"   Satiety of hamster {self.satiety}")
-        print(f"    Food of hamster {self.food}")
+    def status(self):
+        print(f"Name: {self.name}")
+        print(f" Money: {self.money}")
+        print(f" Gladness: {self.gladness}")
+        print(f" Satiety: {self.satiety}")
+        print(f" Food: {self.food}")
         print("-----------------------------------")
 
-
-
-
     def eat_pizza(self):
-        if self.gladness >= 50:
-            print("--------Eating_Pizza--------")
-            self.satiety +=5
+        print("--------Eating Pizza--------")
+        if self.food >= 3:
+            self.satiety += 5
             self.food -= 3
-            print(f"Names of hamster - {self.name}")
-            print(f" Money of hamster {self.money}")
-            print(f"  Gladness of hamster {self.gladness}")
-            print(f"   Satiety of hamster {self.satiety}")
-            print(f"    Food of hamster {self.food}")
-            print("-----------------------------------")
+        else:
+            print("Not enough food!")
+        self.status()
 
     def get_money(self):
-     if self.money >= 50:
-        print("--------Getting_Money--------")
+        print("--------Getting Money--------")
         self.money += 30
         self.gladness -= 3
         self.satiety -= 4
-        print(f"Names of hamster - {self.name}")
-        print(f" Money of hamster {self.money}")
-        print(f"  Gladness of hamster {self.gladness}")
-        print(f"   Satiety of hamster {self.satiety}")
-        print(f"    Food of hamster {self.food}")
-        print("-----------------------------------")
-
+        self.status()
 
     def buy_pizza(self):
-        if self.food == 0:
-            print("--------Buying_Pizza--------")
+        print("--------Buying Pizza--------")
+        if self.money >= 50:
             self.money -= 50
             self.gladness += 10
             self.satiety += 2
-            print(f"Names of hamster - {self.name}")
-            print(f" Money of hamster {self.money}")
-            print(f"  Gladness of hamster {self.gladness}")
-            print(f"   Satiety of hamster {self.satiety}")
-            print(f"    Food of hamster {self.food}")
-            print("-----------------------------------")
+            self.food += 3
+        else:
+            print("No money!")
+        self.status()
 
     def chill(self):
-     if self.gladness >= 30:
         print("--------Chilling--------")
         self.gladness += 10
-        print(f"Names of hamster - {self.name}")
-        print(f" Money of hamster {self.money}")
-        print(f"  Gladness of hamster {self.gladness}")
-        print(f"   Satiety of hamster {self.satiety}")
-        print(f"    Food of hamster {self.food}")
-        print("-----------------------------------")
+        self.status()
 
 
-
+def live_hamster(hamster):
+    if hamster.gladness >= 50:
+        hamster.eat_pizza()
+    if hamster.money < 50:
+        hamster.get_money()
+    if hamster.food == 0 and hamster.money >= 50:
+        hamster.buy_pizza()
+    if hamster.gladness >= 30:
+        hamster.chill()
 
 
 
 mr_teacake = Hamster("mr_Teacake")
 mr_potcake = Hamster("mr_Potcake")
 mr_badil = Hamster("mr_Badil")
+
+
+for _ in range(3):
+    live_hamster(mr_teacake)
+    live_hamster(mr_potcake)
+    live_hamster(mr_badil)
+print("We are happy!")
