@@ -35,7 +35,7 @@
 #
 # for elem in iterator:
 #     print(elem)
-from collections import Counter
+
 
 
 # class counter:
