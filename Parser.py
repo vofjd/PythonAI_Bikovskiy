@@ -4,14 +4,53 @@ import requests
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from datetime import datetime
+import random
 
 
 
+a = '''     /\_/\  
+   =( °w° )=  
+     )   (  //
+    (__ __)//
+'''
+
+b = '''   /\___/\
+  ( - _ - )
+   (   -   )
+   /       \
+  ( /     \ )
+'''
+
+c = '''     /\_/\      ⚔️      /\_/\
+    ( o.o )    ⚔️    ( o.o )
+     > ^ <             > ^ <
+'''
+
+d = '''          /\_____/\
+         /  o   o  \
+        ( ==  ^  == )
+         )         (
+        (           )
+       ( (  )   (  ) )
+      (__(__)___(__)__)
+'''
 
 
+e = '''     /\_/\  
+   =( °w° )=  
+     )   (  //
+    (__ __)//
+'''
 
+f =''' ／l、
+(° o ° )
+ じしf_,)ノ
+'''
 
-
+def choice():
+    meme_list = [a, b, c, d, e, f]  # no curly braces, just variables
+    random_meme = random.choice(meme_list)  # random.choice should work now
+    return random_meme
 
 
 
@@ -56,34 +95,15 @@ for link in links_list:
 
 f.close()
 
-command = '''/help - список всіх команд бота
+command = """/help - список всіх команд бота
 /hello - привітання
 /film - список найновіших фільмів
-/weather - погода у місті зараз
+/calculato місті зараз
 /track - трек тижня
 /time - час у данний момент
-/diary - записи усієї розмови
+/meme - рандомний котячий мем ASCII art
 /random - випадкова функція
-'''
-
-
-
-url2 = "https://soundcloud.com/music-charts-us/sets/all-music-genres"
-r2 = requests.get(url2)
-soup2 = BeautifulSoup(r2.text, features="html.parser")
-soup_list_href2 = soup2.find_all("li", {'class':"trackItem__content sc-truncate"})
-for item in soup_list_href2:
-    a_tag = item.find('a')
-    if a_tag and 'href' in a_tag.attrs:
-        print( a_tag['href'])
-
-
-
-
-
-
-
-
+"""
 
 
 
@@ -109,18 +129,23 @@ async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def weather(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("1")
 
-async def song(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("2")
+# async def song(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+#     for p in range(len(links_list2)):
+#         text = f'{list_name2[p]}\n{list_desc2[p]}\n{links_list2[p]}'
+#         await update.message.reply_text(text)
+#     await update.message.reply_text("2")
 
 async def time(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     now = datetime.now()
     await update.message.reply_text(now.strftime("%H:%M:%S"))
 
-async def history(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("4")
+async def memchick(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    random_meme = choice()
+    await update.message.reply_text(random_meme)
 
-async def random(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("5")
+
+# async def random(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+#     await update.message.reply_text("5")
 
 app = ApplicationBuilder().token("8142640011:AAH2wazr4fhROKdVUZte_QD1XRFGuZDGW9w").build()
 
@@ -128,10 +153,10 @@ app.add_handler(CommandHandler("hello", hello))
 app.add_handler(CommandHandler("film", film))
 app.add_handler(CommandHandler("help", menu))
 app.add_handler(CommandHandler("weather", weather))
-app.add_handler(CommandHandler("track", song))
+# app.add_handler(CommandHandler("track", song))
 app.add_handler(CommandHandler("time", time))
-app.add_handler(CommandHandler("diary", history))
-app.add_handler(CommandHandler("random", random))
+app.add_handler(CommandHandler("meme", memchick))
+# app.add_handler(CommandHandler("random", random))
 
 
 app.run_polling()
